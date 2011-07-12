@@ -4,19 +4,24 @@ require_once 'Ding/Autoloader/Autoloader.php';
 
 \Ding\Autoloader\Autoloader::register();
 class MyPamiHandler implements
-    \Ding\Helpers\PAMI\IPamiEventHandler, \Ding\Logger\ILoggerAware
+    \Ding\Helpers\PAMI\IPamiEventHandler, \Ding\Logger\ILoggerAware,
+    \Ding\Container\IContainerAware
 {
     private $_username;
     private $_password;
     private $_host;
     private $_port;
     protected $logger;
+    protected $container;
     
     public function setLogger(\Logger $logger)
     {
         $this->logger = $logger;
     }
-
+    public function setContainer(\Ding\Container\IContainer $container)
+    {
+        $this->container = $container;
+    }
     public function setUsername($username)
     {
         $this->_username = $username;
@@ -33,8 +38,62 @@ class MyPamiHandler implements
     {
         $this->_port = $port;
     }
+    
     public function handlePamiEvent(\PAMI\Message\Event\EventMessage $event)
     {
+        $eventClass = get_class($event);
+        $this->container->eventDispatch(substr(strrchr($eventClass, '\\'), 1, -5), $event);
+    }
+}
+
+class MyCallListener
+{
+    private $_dbHost;
+    private $_dbTable;
+    private $_dbPort;
+    private $_dbUsername;
+    private $_dbPassword;
+    private $_pdo;
+    private $_dbStatement;
+
+    public function setDBName($db)
+    {
+        $this->_dbName = $db;
+    }
+    public function setDBTable($table)
+    {
+        $this->_dbTable = $table;
+    }
+    public function setDBUsername($username)
+    {
+        $this->_dbUsername = $username;
+    }
+    public function setDBPassword($password)
+    {
+        $this->_dbPassword = $password;
+    }
+    public function setDBHost($host)
+    {
+        $this->_dbHost = $host;
+    }
+    public function setDBPort($port)
+    {
+        $this->_dbPort = $port;
+    }
+    public function init()
+    {
+        $string
+            = 'mysql:dbname=' . $this->_dbName
+            . ';host=' . $this->_dbHost
+            . ';port=' . $this->_dbPort
+        ;
+        $this->_pdo = new PDO($string, $this->_dbUsername, $this->_dbPassword);
+        $sql = 'INSERT INTO `' . $this->_dbTable . '` (`call`) VALUES(:call)';
+        $this->_dbStatement = $this->_pdo->prepare($sql);
+    }
+    public function onDial($event)
+    {
+        $this->_dbStatement->execute(array('call' => serialize($event)));
     }
 }
 

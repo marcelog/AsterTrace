@@ -5,6 +5,7 @@
       <array>  
         <entry key="0"><value>file://${config.dir}/ramid.properties</value></entry>  
         <entry key="1"><value>file://${config.dir}/php.properties</value></entry>  
+        <entry key="1"><value>file://${config.dir}/mysql.properties</value></entry>  
       </array>  
     </property>  
   </bean>
@@ -19,5 +20,13 @@
   <bean id="myErrorHandler" class="MyErrorHandler" scope="singleton"/>
   <bean id="ErrorHandler" class="Ding\Helpers\ErrorHandler\ErrorHandlerHelper" scope="singleton">
     <property name="errorHandler"><ref bean="myErrorHandler"/></property>
+  </bean>
+  <bean id="myCallListener" class="MyCallListener" scope="singleton" init-method="init" listens-on="dial">
+    <property name="dbPassword"><value>${mysql.password}</value></property>
+    <property name="dbUsername"><value>${mysql.username}</value></property>
+    <property name="dbHost"><value>${mysql.host}</value></property>
+    <property name="dbPort"><value>${mysql.port}</value></property>
+    <property name="dbName"><value>${mysql.db}</value></property>
+    <property name="dbTable"><value>${mysql.table}</value></property>
   </bean>
 </beans>
