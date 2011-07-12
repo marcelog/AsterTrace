@@ -1,0 +1,5 @@
+ami.host=localhost
+ami.user=admin
+ami.password=admin
+ami.port=9999
+

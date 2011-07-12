@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="PropertiesHolder" class="Ding\Helpers\Properties\PropertiesHelper" scope="singleton">  
+    <property name="locations">  
+      <array>  
+        <entry key="0"><value>file://${config.dir}/ramid.properties</value></entry>  
+        <entry key="1"><value>file://${config.dir}/php.properties</value></entry>  
+      </array>  
+    </property>  
+  </bean>
+  <bean id="pami" class="Ding\Helpers\PAMI\PamiHelper" scope="singleton" init-method="open" destroy-method="close">
+    <property name="username"><value>${ami.username}</value></property>
+    <property name="password"><value>${ami.password}</value></property>
+    <property name="host"><value>${ami.host}</value></property>
+    <property name="port"><value>${ami.port}</value></property>
+    <property name="handler"><ref bean="myPamiHandler"/></property>
+  </bean>
+  <bean id="myPamiHandler" class="MyPamiHandler" scope="singleton"/>
+  <bean id="myErrorHandler" class="MyErrorHandler" scope="singleton"/>
+  <bean id="ErrorHandler" class="Ding\Helpers\ErrorHandler\ErrorHandlerHelper" scope="singleton">
+    <property name="errorHandler"><ref bean="myErrorHandler"/></property>
+  </bean>
+</beans>
