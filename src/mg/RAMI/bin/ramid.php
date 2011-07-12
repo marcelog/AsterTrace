@@ -7,10 +7,6 @@ class MyPamiHandler implements
     \Ding\Helpers\PAMI\IPamiEventHandler, \Ding\Logger\ILoggerAware,
     \Ding\Container\IContainerAware
 {
-    private $_username;
-    private $_password;
-    private $_host;
-    private $_port;
     protected $logger;
     protected $container;
     
@@ -22,23 +18,6 @@ class MyPamiHandler implements
     {
         $this->container = $container;
     }
-    public function setUsername($username)
-    {
-        $this->_username = $username;
-    }
-    public function setPassword($password)
-    {
-        $this->_password = $password;
-    }
-    public function setHost($host)
-    {
-        $this->_host = $host;
-    }
-    public function setPort($port)
-    {
-        $this->_port = $port;
-    }
-    
     public function handlePamiEvent(\PAMI\Message\Event\EventMessage $event)
     {
         $eventClass = get_class($event);
