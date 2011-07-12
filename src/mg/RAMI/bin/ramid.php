@@ -48,48 +48,23 @@ class MyPamiHandler implements
 
 class MyCallListener
 {
-    private $_dbHost;
-    private $_dbTable;
-    private $_dbPort;
-    private $_dbUsername;
-    private $_dbPassword;
-    private $_pdo;
+    private $_pdoMysql;
     private $_dbStatement;
+    private $_dbTable;
 
-    public function setDBName($db)
-    {
-        $this->_dbName = $db;
-    }
-    public function setDBTable($table)
+    public function setDbTable($table)
     {
         $this->_dbTable = $table;
     }
-    public function setDBUsername($username)
+
+    public function setPdoMysql($pdoMysql)
     {
-        $this->_dbUsername = $username;
-    }
-    public function setDBPassword($password)
-    {
-        $this->_dbPassword = $password;
-    }
-    public function setDBHost($host)
-    {
-        $this->_dbHost = $host;
-    }
-    public function setDBPort($port)
-    {
-        $this->_dbPort = $port;
+        $this->_pdoMysql = $pdoMysql;
     }
     public function init()
     {
-        $string
-            = 'mysql:dbname=' . $this->_dbName
-            . ';host=' . $this->_dbHost
-            . ';port=' . $this->_dbPort
-        ;
-        $this->_pdo = new PDO($string, $this->_dbUsername, $this->_dbPassword);
         $sql = 'INSERT INTO `' . $this->_dbTable . '` (`call`) VALUES(:call)';
-        $this->_dbStatement = $this->_pdo->prepare($sql);
+        $this->_dbStatement = $this->_pdoMysql->prepare($sql);
     }
     public function onDial($event)
     {
