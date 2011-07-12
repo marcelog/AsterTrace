@@ -46,29 +46,30 @@ class MyPamiHandler implements
     }
 }
 
-class MyCallListener
+class MyCallListener implements \Ding\Logger\ILoggerAware
 {
-    private $_pdoMysql;
-    private $_dbStatement;
-    private $_dbTable;
+    private $_insertStatement;
+    protected $logger;
 
-    public function setDbTable($table)
+    public function setLogger(\Logger $logger)
     {
-        $this->_dbTable = $table;
+        $this->logger = $logger;
     }
 
-    public function setPdoMysql($pdoMysql)
+    public function setInsertStatement($statement)
     {
-        $this->_pdoMysql = $pdoMysql;
+        $this->_insertStatement = $statement;
     }
-    public function init()
-    {
-        $sql = 'INSERT INTO `' . $this->_dbTable . '` (`call`) VALUES(:call)';
-        $this->_dbStatement = $this->_pdoMysql->prepare($sql);
-    }
+
     public function onDial($event)
     {
-        $this->_dbStatement->execute(array('call' => serialize($event)));
+        $result = $this->_insertStatement->execute(array('call' => serialize($event)));
+        if ($result === false) {
+            $this->logger->error(
+                $this->_insertStatement->errorCode() . ': '
+                . print_r($this->_insertStatement->errorInfo(), true)
+            );
+        }
     }
 }
 
