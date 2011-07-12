@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
+  <import resource="error-handler.xml"/>
+  <import resource="shutdown-handler.xml"/>
+  <import resource="signal-handler.xml"/>
   <bean id="PropertiesHolder" class="Ding\Helpers\Properties\PropertiesHelper" scope="singleton">  
     <property name="locations">  
       <array>  
@@ -17,10 +20,6 @@
     <property name="handler"><ref bean="myPamiHandler"/></property>
   </bean>
   <bean id="myPamiHandler" class="MyPamiHandler" scope="singleton"/>
-  <bean id="myErrorHandler" class="MyErrorHandler" scope="singleton"/>
-  <bean id="ErrorHandler" class="Ding\Helpers\ErrorHandler\ErrorHandlerHelper" scope="singleton">
-    <property name="errorHandler"><ref bean="myErrorHandler"/></property>
-  </bean>
   <bean id="insertCallStatement" class="PDOStatement" scope="prototype" factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>INSERT INTO `${mysql.table}` (`call`) VALUES(:call)</value></constructor-arg>
   </bean>

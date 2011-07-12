@@ -19,7 +19,7 @@ $dingDrivers = array(
 $dingBdef = array(
     'xml' => array(
         'filename' => 'beans.xml',
-        'directories' => array($configDir)
+        'directories' => array($configDir . DIRECTORY_SEPARATOR . 'support')
     )
 );
 
