@@ -1,8 +1,6 @@
 <?php
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
-require_once 'Ding/Autoloader/Autoloader.php';
-
-\Ding\Autoloader\Autoloader::register();
 class MyPamiHandler implements
     \Ding\Helpers\PAMI\IPamiEventHandler, \Ding\Logger\ILoggerAware,
     \Ding\Container\IContainerAware
@@ -107,23 +105,9 @@ $retCode = 0;
 $running = true;
 try
 {
-    if ($argc != 2) {
-        throw new \Exception(implode(' ', array(
-            'Use:', $argv[0], '<config_dir>'
-        )));
-    }
-    $configDir = $argv[1];
-    $properties = array('ding' => array(
-        'log4php.properties' => $configDir . DIRECTORY_SEPARATOR . 'log4php.properties',
-        'factory' => array(
-            'drivers' => array('errorhandler' => array(), 'shutdown' => array(), 'signalhandler' => array()),
-            'properties' => array('config.dir' => $configDir),
-            'bdef' => array(
-                'xml' => array('filename' => 'beans.xml', 'directories' => array($configDir))
-            )
-        )
-    ));
-    $container = \Ding\Container\Impl\ContainerImpl::getInstance($properties);
+    $container = \Ding\Container\Impl\ContainerImpl::getInstance(
+        $dingProperties
+    );
     $listener = $container->getBean('pami');
     while($running) {
         $listener->process();
