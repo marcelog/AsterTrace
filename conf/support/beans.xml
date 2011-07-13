@@ -3,8 +3,6 @@
   <import resource="error-handler.xml"/>
   <import resource="shutdown-handler.xml"/>
   <import resource="signal-handler.xml"/>
-  <import resource="pdo-mysql.xml"/>
-  <import resource="pami.xml"/>
   <import resource="event-handlers.xml"/>
   <bean id="PropertiesHolder" class="Ding\Helpers\Properties\PropertiesHelper" scope="singleton">  
     <property name="locations">  
