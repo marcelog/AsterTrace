@@ -11,13 +11,4 @@
       </array>  
     </property>  
   </bean>
-  <bean id="pami" class="Ding\Helpers\PAMI\PamiHelper" scope="singleton" init-method="open" destroy-method="close" depends-on="dialListener">
-    <property name="username"><value>${ami.username}</value></property>
-    <property name="password"><value>${ami.password}</value></property>
-    <property name="host"><value>${ami.host}</value></property>
-    <property name="port"><value>${ami.port}</value></property>
-    <property name="connectTimeout"><value>${ami.connect_timeout}</value></property>
-    <property name="readTimeout"><value>${ami.read_timeout}</value></property>
-    <property name="handler"><ref bean="pamiHandler"/></property>
-  </bean>
 </beans>
