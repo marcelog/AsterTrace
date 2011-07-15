@@ -7,7 +7,7 @@
       <array>  
         <entry key="0"><value>file://${config.dir}/ramid.properties</value></entry>  
         <entry key="1"><value>file://${config.dir}/php.properties</value></entry>  
-        <entry key="1"><value>file://${config.dir}/mysql.properties</value></entry>  
+        <entry key="2"><value>file://${config.dir}/mysql.properties</value></entry>  
       </array>  
     </property>  
   </bean>
