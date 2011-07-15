@@ -7,8 +7,11 @@
     <property name="startCallStatement"><ref bean="startCallStatement"/></property>
     <property name="endCallStatement"><ref bean="endCallStatement"/></property>
   </bean>
+
   <bean id="hangupStatement" class="PDOStatement" scope="prototype" factory-bean="pdoMysql" factory-method="prepare">
-    <constructor-arg><value>UPDATE `${mysql.table}` SET `cause`=:cause,`cause_txt`=:causeTxt WHERE `uniqueid_src`=:uniqueidSrc</value></constructor-arg>
+    <constructor-arg><value>
+UPDATE `${mysql.table}` SET `cause`=:cause,`cause_txt`=:causeTxt WHERE `uniqueid_src`=:uniqueidSrc
+    </value></constructor-arg>
   </bean>
 
   <bean id="startCallStatement" class="PDOStatement" scope="prototype" factory-bean="pdoMysql" factory-method="prepare">
@@ -20,7 +23,7 @@ INSERT INTO `${mysql.table}` (
 :dialString, :clidName, :clidNum, :channelSrc, :channelDst,
 :eventStart, :uniqueidSrc, :uniqueidDst
 )
-</value></constructor-arg>
+    </value></constructor-arg>
   </bean>
 
   <bean id="dialedTimeStatement" class="PDOStatement" scope="prototype" factory-bean="pdoMysql" factory-method="prepare">
