@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="pdoMysql" class="PDO" scope="singleton">
+    <constructor-arg><value>mysql:dbname=${mysql.db};host=${mysql.host};port=${mysql.port}</value></constructor-arg>
+    <constructor-arg><value>${mysql.username}</value></constructor-arg>
+    <constructor-arg><value>${mysql.password}</value></constructor-arg>
+  </bean>
+</beans>
