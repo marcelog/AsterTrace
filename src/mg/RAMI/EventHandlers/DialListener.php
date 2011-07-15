@@ -40,6 +40,17 @@ class DialListener implements \Ding\Logger\ILoggerAware
         $this->_endCallStatement = $statement;
     }
 
+    private function _executeStatement(\PDOStatement $statement, array $args)
+    {
+        $result = $statement->execute($args);
+        if ($result === false) {
+            $this->logger->error(
+                $statement->errorCode() . ': '
+                . print_r($statement->errorInfo(), true)
+            );
+        }
+    }
+
     public function onVarSet($event)
     {
         $statement = false;
@@ -55,49 +66,31 @@ class DialListener implements \Ding\Logger\ILoggerAware
             $args['timeAnswer'] = $event->getValue();
         } 
         if ($statement !== false) {
-            $result = $statement->execute($args);
-            if ($result === false) {
-                $this->logger->error(
-                    $statement->errorCode() . ': '
-                    . print_r($statement->errorInfo(), true)
-                );
-            }
+            $this->_executeStatement($statement, $args);
         }
     }
 
     public function onHangup($event)
     {
-        $result = $this->_hangupStatement->execute(array(
+        $this->_executeStatement($this->_hangupStatement, array(
             'uniqueidSrc' => $event->getUniqueId(),
             'cause' => $event->getCause(),
             'causeTxt' => $event->getCauseText()
         ));
-        if ($result === false) {
-            $this->logger->error(
-                $this->_hangupStatement->errorCode() . ': '
-                . print_r($this->_hangupStatement->errorInfo(), true)
-            );
-        }
     }
 
     public function onDialEnd($event)
     {
-        $result = $this->_endCallStatement->execute(array(
+        $this->_executeStatement($this->_endCallStatement, array(
             'uniqueidSrc' => $event->getUniqueId(),
             'status' => $event->getDialStatus(),
             'eventEnd' => serialize($event)
         ));
-        if ($result === false) {
-            $this->logger->error(
-                $this->_endCallStatement->errorCode() . ': '
-                . print_r($this->_endCallStatement->errorInfo(), true)
-            );
-        }
     }
 
     public function onDialBegin($event)
     {
-        $result = $this->_startCallStatement->execute(array(
+        $this->_executeStatement($this->_startCallStatement, array(
             'uniqueidSrc' => $event->getUniqueId(),
             'uniqueidDst' => $event->getDestUniqueID(),
             'eventStart' => serialize($event),
@@ -107,12 +100,6 @@ class DialListener implements \Ding\Logger\ILoggerAware
             'clidName' => $event->getCallerIDName(),
             'clidNum' => $event->getCallerIDNum()
         ));
-        if ($result === false) {
-            $this->logger->error(
-                $this->_startCallStatement->errorCode() . ': '
-                . print_r($this->_startCallStatement->errorInfo(), true)
-            );
-        }
     }
 }
 
