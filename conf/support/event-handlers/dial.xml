@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <bean id="dialListener" class="EventHandlers\DialListener" scope="singleton"
+ <bean id="dialListener" class="EventHandlers\DialListener" scope="singleton"
     init-method="init" listens-on="dialBegin, dialEnd, hangup, varSet">
     <property name="createStatement"><ref bean="createStatement"/></property>
     <property name="hangupStatement"><ref bean="hangupStatement"/></property>
@@ -8,6 +8,12 @@
     <property name="answeredTimeStatement"><ref bean="answeredTimeStatement"/></property>
     <property name="startCallStatement"><ref bean="startCallStatement"/></property>
     <property name="endCallStatement"><ref bean="endCallStatement"/></property>
+  </bean>
+
+  <bean id="pdoMysql" class="PDO" scope="singleton">
+    <constructor-arg><value>mysql:dbname=${mysql.db};host=${mysql.host};port=${mysql.port}</value></constructor-arg>
+    <constructor-arg><value>${mysql.username}</value></constructor-arg>
+    <constructor-arg><value>${mysql.password}</value></constructor-arg>
   </bean>
 
   <bean id="createStatement" class="PDOStatement" scope="prototype"
@@ -78,9 +84,4 @@ UPDATE `${mysql.table}` SET `eventEnd`=:eventEnd, `status`=:status WHERE `unique
     </value></constructor-arg>
   </bean>
 
-  <bean id="pdoMysql" class="PDO" scope="singleton">
-    <constructor-arg><value>mysql:dbname=${mysql.db};host=${mysql.host};port=${mysql.port}</value></constructor-arg>
-    <constructor-arg><value>${mysql.username}</value></constructor-arg>
-    <constructor-arg><value>${mysql.password}</value></constructor-arg>
-  </bean>
 </beans>
