@@ -3,11 +3,29 @@ namespace EventHandlers;
 
 class DialListener implements \Ding\Logger\ILoggerAware
 {
+    /**
+     * @var \PDOStatement
+     */
     private $_startCallStatement;
+    /**
+     * @var \PDOStatement
+     */
     private $_endCallStatement;
+    /**
+     * @var \PDOStatement
+     */
     private $_hangupStatement;
+    /**
+     * @var \PDOStatement
+     */
     private $_dialedTimeStatement;
+    /**
+     * @var \PDOStatement
+     */
     private $_answeredTimeStatement;
+    /**
+     * @var \Logger
+     */
     protected $logger;
 
     public function setLogger(\Logger $logger)
