@@ -18,6 +18,7 @@ class PamiHandler implements
     }
     public function handlePamiEvent(\PAMI\Message\Event\EventMessage $event)
     {
+        $this->container->eventDispatch('anyEvent', $event);
         $eventClass = get_class($event);
         $eventName = substr($eventClass, strrpos($eventClass, '\\') + 1);
         $eventName = lcfirst(substr($eventName, 0, -5));
