@@ -3,7 +3,8 @@ namespace EventHandlers;
 
 class DialListener implements \Ding\Logger\ILoggerAware
 {
-    private $_insertStatement;
+    private $_startCallStatement;
+    private $_endCallStatement;
     protected $logger;
 
     public function setLogger(\Logger $logger)
@@ -11,18 +12,40 @@ class DialListener implements \Ding\Logger\ILoggerAware
         $this->logger = $logger;
     }
 
-    public function setInsertStatement($statement)
+    public function setStartCallStatement($statement)
     {
-        $this->_insertStatement = $statement;
+        $this->_startCallStatement = $statement;
     }
 
-    public function onDial($event)
+    public function setEndCallStatement($statement)
     {
-        $result = $this->_insertStatement->execute(array('call' => serialize($event)));
+        $this->_endCallStatement = $statement;
+    }
+
+    public function onDialEnd($event)
+    {
+        $result = $this->_endCallStatement->execute(array(
+            'uniqueid' => $event->getUniqueId(),
+            'status' => $event->getDialStatus()
+        ));
         if ($result === false) {
             $this->logger->error(
-                $this->_insertStatement->errorCode() . ': '
-                . print_r($this->_insertStatement->errorInfo(), true)
+                $this->_endCallStatement->errorCode() . ': '
+                . print_r($this->_endCallStatement->errorInfo(), true)
+            );
+        }
+    }
+
+    public function onDialStart($event)
+    {
+        $result = $this->_startCallStatement->execute(array(
+            'uniqueid' => $event->getUniqueId(),
+            'call' => serialize($event))
+        );
+        if ($result === false) {
+            $this->logger->error(
+                $this->_startCallStatement->errorCode() . ': '
+                . print_r($this->_startCallStatement->errorInfo(), true)
             );
         }
     }

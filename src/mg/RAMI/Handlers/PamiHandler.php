@@ -19,7 +19,13 @@ class PamiHandler implements
     public function handlePamiEvent(\PAMI\Message\Event\EventMessage $event)
     {
         $eventClass = get_class($event);
-        $this->container->eventDispatch(substr(strrchr($eventClass, '\\'), 1, -5), $event);
+        if (strstr($eventClass, "Dial")) {
+            if ($event->getSubEvent() == "Begin") {
+                $this->container->eventDispatch('dialStart', $event);
+            } else if ($event->getSubEvent() == "End") {
+                $this->container->eventDispatch('dialEnd', $event);
+            }
+        }
     }
 }
 
