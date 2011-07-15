@@ -4,4 +4,6 @@ mysql.host=127.0.0.1
 mysql.port=3306
 mysql.username=root
 mysql.password=root
+mysql.table.call=call
+mysql.table.dtmf=dtmf
 

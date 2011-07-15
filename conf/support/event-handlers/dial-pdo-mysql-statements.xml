@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <bean id="createStatement" class="PDOStatement" scope="prototype"
+  <bean id="createCallStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
-CREATE TABLE IF NOT EXISTS `${mysql.table}` (
+CREATE TABLE IF NOT EXISTS `${mysql.table.call}` (
   `id` int(11) NOT NULL auto_increment,
   `uniqueid_src` varchar(32) NOT NULL,
   `uniqueid_dst` varchar(32) NOT NULL,
@@ -27,17 +27,17 @@ CREATE TABLE IF NOT EXISTS `${mysql.table}` (
     </value></constructor-arg>
   </bean>
 
-  <bean id="hangupStatement" class="PDOStatement" scope="prototype"
+  <bean id="hangupCallStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
-UPDATE `${mysql.table}` SET `cause`=:cause,`cause_txt`=:causeTxt WHERE `uniqueid_src`=:uniqueidSrc
+UPDATE `${mysql.table.call}` SET `cause`=:cause,`cause_txt`=:causeTxt WHERE `uniqueid_src`=:uniqueidSrc
     </value></constructor-arg>
   </bean>
 
   <bean id="startCallStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
-INSERT INTO `${mysql.table}` (
+INSERT INTO `${mysql.table.call}` (
 `dialstring`, `clid_name`, `clid_num`, `channel_src`, `channel_dst`,
 `eventStart`, `uniqueid_src`, `uniqueid_dst`
 ) VALUES(
@@ -50,21 +50,21 @@ INSERT INTO `${mysql.table}` (
   <bean id="dialedTimeStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
-UPDATE `${mysql.table}` SET `time_dial`=:timeDial WHERE `uniqueid_src`=:uniqueidSrc
+UPDATE `${mysql.table.call}` SET `time_dial`=:timeDial WHERE `uniqueid_src`=:uniqueidSrc
     </value></constructor-arg>
   </bean>
 
   <bean id="answeredTimeStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
-UPDATE `${mysql.table}` SET `time_answer`=:timeAnswer WHERE `uniqueid_src`=:uniqueidSrc
+UPDATE `${mysql.table.call}` SET `time_answer`=:timeAnswer WHERE `uniqueid_src`=:uniqueidSrc
     </value></constructor-arg>
   </bean>
 
   <bean id="endCallStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
-UPDATE `${mysql.table}` SET `eventEnd`=:eventEnd, `status`=:status WHERE `uniqueid_src`=:uniqueidSrc
+UPDATE `${mysql.table.call}` SET `eventEnd`=:eventEnd, `status`=:status WHERE `uniqueid_src`=:uniqueidSrc
     </value></constructor-arg>
   </bean>
 </beans>

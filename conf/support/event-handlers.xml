@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
   <import resource="event-handlers/dial.xml"/>
+  <import resource="event-handlers/dtmf.xml"/>
 </beans>

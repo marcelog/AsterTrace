@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <import resource="event-handlers/dtmf-pdo-mysql-statements.xml"/>
+  <bean id="dtmfListener" class="EventHandlers\DtmfListener" scope="singleton"
+    init-method="init" listens-on="dTMF">
+    <property name="createStatement"><ref bean="createDtmfStatement"/></property>
+    <property name="insertStatement"><ref bean="insertDtmfStatement"/></property>
+  </bean>
+</beans>
