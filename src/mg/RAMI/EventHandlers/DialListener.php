@@ -1,7 +1,7 @@
 <?php
 namespace EventHandlers;
 
-class DialListener implements \Ding\Logger\ILoggerAware
+class DialListener extends PDOListener
 {
     /**
      * @var \PDOStatement
@@ -33,16 +33,6 @@ class DialListener implements \Ding\Logger\ILoggerAware
      */
     private $_createStatement;
 
-    /**
-     * @var \Logger
-     */
-    protected $logger;
-
-    public function setLogger(\Logger $logger)
-    {
-        $this->logger = $logger;
-    }
-
     public function setCreateStatement($statement)
     {
         $this->_createStatement = $statement;
@@ -73,25 +63,6 @@ class DialListener implements \Ding\Logger\ILoggerAware
         $this->_endCallStatement = $statement;
     }
 
-    /**
-     * Execute a pdo statement, binding the arguments.
-     *
-     * @param \PDOStatement $statement Statement to execute
-     * @param array         $args      Arguments to bind
-     *
-     * @return void
-     */
-    private function _executeStatement(\PDOStatement $statement, array $args)
-    {
-        $result = $statement->execute($args);
-        if ($result === false) {
-            $this->logger->error(
-                $statement->errorCode() . ': '
-                . print_r($statement->errorInfo(), true)
-            );
-        }
-    }
-
     public function onVarSet($event)
     {
         $statement = false;
@@ -107,13 +78,13 @@ class DialListener implements \Ding\Logger\ILoggerAware
             $args['timeAnswer'] = $event->getValue();
         } 
         if ($statement !== false) {
-            $this->_executeStatement($statement, $args);
+            $this->executeStatement($statement, $args);
         }
     }
 
     public function onHangup($event)
     {
-        $this->_executeStatement($this->_hangupStatement, array(
+        $this->executeStatement($this->_hangupStatement, array(
             'uniqueidSrc' => $event->getUniqueId(),
             'cause' => $event->getCause(),
             'causeTxt' => $event->getCauseText()
@@ -122,7 +93,7 @@ class DialListener implements \Ding\Logger\ILoggerAware
 
     public function onDialEnd($event)
     {
-        $this->_executeStatement($this->_endCallStatement, array(
+        $this->executeStatement($this->_endCallStatement, array(
             'uniqueidSrc' => $event->getUniqueId(),
             'status' => $event->getDialStatus(),
             'eventEnd' => serialize($event)
@@ -131,7 +102,7 @@ class DialListener implements \Ding\Logger\ILoggerAware
 
     public function onDialBegin($event)
     {
-        $this->_executeStatement($this->_startCallStatement, array(
+        $this->executeStatement($this->_startCallStatement, array(
             'uniqueidSrc' => $event->getUniqueId(),
             'uniqueidDst' => $event->getDestUniqueID(),
             'eventStart' => serialize($event),
@@ -145,7 +116,7 @@ class DialListener implements \Ding\Logger\ILoggerAware
 
     public function init()
     {
-        $this->_executeStatement($this->_createStatement, array());
+        $this->executeStatement($this->_createStatement, array());
     }
 }
 

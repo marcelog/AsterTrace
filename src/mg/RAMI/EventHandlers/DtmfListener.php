@@ -1,7 +1,7 @@
 <?php
 namespace EventHandlers;
 
-class DtmfListener implements \Ding\Logger\ILoggerAware
+class DtmfListener extends PDOListener
 {
     /**
      * @var \PDOStatement
@@ -13,16 +13,6 @@ class DtmfListener implements \Ding\Logger\ILoggerAware
      */
     private $_createStatement;
 
-    /**
-     * @var \Logger
-     */
-    protected $logger;
-
-    public function setLogger(\Logger $logger)
-    {
-        $this->logger = $logger;
-    }
-
     public function setCreateStatement($statement)
     {
         $this->_createStatement = $statement;
@@ -33,29 +23,10 @@ class DtmfListener implements \Ding\Logger\ILoggerAware
         $this->_insertStatement = $statement;
     }
 
-    /**
-     * Execute a pdo statement, binding the arguments.
-     *
-     * @param \PDOStatement $statement Statement to execute
-     * @param array         $args      Arguments to bind
-     *
-     * @return void
-     */
-    private function _executeStatement(\PDOStatement $statement, array $args)
-    {
-        $result = $statement->execute($args);
-        if ($result === false) {
-            $this->logger->error(
-                $statement->errorCode() . ': '
-                . print_r($statement->errorInfo(), true)
-            );
-        }
-    }
-
     public function onDTMF($event)
     {
         if ($event->getEnd() == 'Yes') {
-            $this->_executeStatement($this->_insertStatement, array(
+            $this->executeStatement($this->_insertStatement, array(
                 'uniqueid' => $event->getUniqueId(),
                 'dtmf' => $event->getDigit(),
                 'channel' => $event->getChannel()
@@ -65,7 +36,7 @@ class DtmfListener implements \Ding\Logger\ILoggerAware
 
     public function init()
     {
-        $this->_executeStatement($this->_createStatement, array());
+        $this->executeStatement($this->_createStatement, array());
     }
 }
 
