@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <bean id="myErrorHandler" class="MyErrorHandler" scope="singleton"/>
+  <bean id="myErrorHandler" class="Handlers\ErrorHandler" scope="singleton"/>
   <bean id="ErrorHandler" class="Ding\Helpers\ErrorHandler\ErrorHandlerHelper" scope="singleton">
     <property name="errorHandler"><ref bean="myErrorHandler"/></property>
   </bean>
