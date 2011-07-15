@@ -3,4 +3,5 @@
   <import resource="handlers/error-handler.xml"/>
   <import resource="handlers/shutdown-handler.xml"/>
   <import resource="handlers/signal-handler.xml"/>
+  <import resource="handlers/pami-handler.xml"/>
 </beans>

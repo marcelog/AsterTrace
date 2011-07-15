@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <import resource="pami.xml"/>
-  <import resource="pdo-mysql.xml"/>
-  <bean id="dialListener" class="EventHandlers\DialListener" scope="singleton" listens-on="dial">
-    <property name="insertStatement"><ref bean="insertCallStatement"/></property>
-  </bean>
+  <import resource="event-handlers/dial.xml"/>
 </beans>

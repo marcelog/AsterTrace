@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
+  <bean id="dialListener" class="EventHandlers\DialListener" scope="singleton" listens-on="dial">
+    <property name="insertStatement"><ref bean="insertCallStatement"/></property>
+  </bean>
   <bean id="insertCallStatement" class="PDOStatement" scope="prototype" factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>INSERT INTO `${mysql.table}` (`call`) VALUES(:call)</value></constructor-arg>
   </bean>
