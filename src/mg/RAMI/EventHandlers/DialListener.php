@@ -73,6 +73,14 @@ class DialListener implements \Ding\Logger\ILoggerAware
         $this->_endCallStatement = $statement;
     }
 
+    /**
+     * Execute a pdo statement, binding the arguments.
+     *
+     * @param \PDOStatement $statement Statement to execute
+     * @param array         $args      Arguments to bind
+     *
+     * @return void
+     */
     private function _executeStatement(\PDOStatement $statement, array $args)
     {
         $result = $statement->execute($args);
