@@ -5,6 +5,7 @@ ini_set('include_path', implode(PATH_SEPARATOR, array(
         __DIR__, '..'
     )))
 )));
+
 require_once 'Ding/Autoloader/Autoloader.php';
 \Ding\Autoloader\Autoloader::register();
 

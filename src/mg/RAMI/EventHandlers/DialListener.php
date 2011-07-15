@@ -26,7 +26,8 @@ class DialListener implements \Ding\Logger\ILoggerAware
     {
         $result = $this->_endCallStatement->execute(array(
             'uniqueid' => $event->getUniqueId(),
-            'status' => $event->getDialStatus()
+            'status' => $event->getDialStatus(),
+            'eventEnd' => serialize($event)
         ));
         if ($result === false) {
             $this->logger->error(
@@ -36,12 +37,17 @@ class DialListener implements \Ding\Logger\ILoggerAware
         }
     }
 
-    public function onDialStart($event)
+    public function onDialBegin($event)
     {
         $result = $this->_startCallStatement->execute(array(
             'uniqueid' => $event->getUniqueId(),
-            'call' => serialize($event))
-        );
+            'eventStart' => serialize($event),
+            'channelSrc' => $event->getChannel(),
+            'channelDst' => $event->getDestination(),
+            'dialString' => $event->getDialString(),
+            'clidName' => $event->getCallerIDName(),
+            'clidNum' => $event->getCallerIDNum()
+        ));
         if ($result === false) {
             $this->logger->error(
                 $this->_startCallStatement->errorCode() . ': '
