@@ -7,22 +7,32 @@ class DialListener implements \Ding\Logger\ILoggerAware
      * @var \PDOStatement
      */
     private $_startCallStatement;
+
     /**
      * @var \PDOStatement
      */
     private $_endCallStatement;
+
     /**
      * @var \PDOStatement
      */
     private $_hangupStatement;
+
     /**
      * @var \PDOStatement
      */
     private $_dialedTimeStatement;
+
     /**
      * @var \PDOStatement
      */
     private $_answeredTimeStatement;
+
+    /**
+     * @var \PDOStatement
+     */
+    private $_createStatement;
+
     /**
      * @var \Logger
      */
@@ -31,6 +41,11 @@ class DialListener implements \Ding\Logger\ILoggerAware
     public function setLogger(\Logger $logger)
     {
         $this->logger = $logger;
+    }
+
+    public function setCreateStatement($statement)
+    {
+        $this->_createStatement = $statement;
     }
 
     public function setHangupStatement($statement)
@@ -118,6 +133,11 @@ class DialListener implements \Ding\Logger\ILoggerAware
             'clidName' => $event->getCallerIDName(),
             'clidNum' => $event->getCallerIDNum()
         ));
+    }
+
+    public function init()
+    {
+        $this->_executeStatement($this->_createStatement, array());
     }
 }
 
