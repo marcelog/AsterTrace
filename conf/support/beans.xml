@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <import resource="error-handler.xml"/>
-  <import resource="shutdown-handler.xml"/>
-  <import resource="signal-handler.xml"/>
+  <import resource="handlers.xml"/>
   <import resource="event-handlers.xml"/>
   <bean id="PropertiesHolder" class="Ding\Helpers\Properties\PropertiesHelper" scope="singleton">  
     <property name="locations">  

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <import resource="handlers/error-handler.xml"/>
+  <import resource="handlers/shutdown-handler.xml"/>
+  <import resource="handlers/signal-handler.xml"/>
+</beans>
