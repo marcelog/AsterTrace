@@ -2,7 +2,7 @@
 <beans>
   <import resource="pami.xml"/>
   <import resource="pdo-mysql.xml"/>
-  <bean id="myCallListener" class="MyCallListener" scope="singleton" listens-on="dial">
+  <bean id="dialListener" class="EventHandlers\DialListener" scope="singleton" listens-on="dial">
     <property name="insertStatement"><ref bean="insertCallStatement"/></property>
   </bean>
 </beans>
