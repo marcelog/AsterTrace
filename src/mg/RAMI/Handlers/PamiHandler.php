@@ -15,6 +15,16 @@ class PamiHandler implements
      */
     protected $container;
     
+    /**
+     * @var integer
+     */
+    private $_eventsNumber;
+
+    /**
+     * @var integer
+     */
+    private $_started;
+
     public function setLogger(\Logger $logger)
     {
         $this->logger = $logger;
@@ -25,8 +35,25 @@ class PamiHandler implements
         $this->container = $container;
     }
 
+    public function init()
+    { 
+        $this->_started = time();
+        $this->_eventsNumber = 0;
+    }
+
+    public function shutdown()
+    {
+        $this->logger->info(
+            'Handled: ' . intval($this->_eventsNumber)
+            . ' events in ' . intval(time() - $this->_started)
+            . ' seconds'
+        );
+    }
+
     public function handlePamiEvent(\PAMI\Message\Event\EventMessage $event)
     {
+        $this->_eventsNumber++;
+
         // First, dispatch the event to all generic event listeners
         $this->container->eventDispatch('anyEvent', $event);
 
