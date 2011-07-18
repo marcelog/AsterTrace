@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="createEventsStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+CREATE TABLE IF NOT EXISTS `${mysql.table.event}` (
+  `name` varchar(32) NOT NULL,
+  `event` TEXT NOT NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  KEY  (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+    </value></constructor-arg>
+  </bean>
+
+  <bean id="insertEventsStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+INSERT INTO `${mysql.table.event}` (`name`, `event`) VALUES(:name, :event)
+    </value></constructor-arg>
+  </bean>
+</beans>

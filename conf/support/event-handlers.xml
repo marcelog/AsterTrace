@@ -2,4 +2,5 @@
 <beans>
   <import resource="event-handlers/dial.xml"/>
   <import resource="event-handlers/dtmf.xml"/>
+  <import resource="event-handlers/event.xml"/>
 </beans>

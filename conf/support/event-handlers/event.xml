@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <import resource="event-handlers/event-pdo-mysql-statements.xml"/>
+  <bean id="genericEventListener" class="EventHandlers\EventListener" scope="singleton"
+    init-method="init" listens-on="anyEvent">
+    <property name="createStatement"><ref bean="createEventsStatement"/></property>
+    <property name="insertStatement"><ref bean="insertEventsStatement"/></property>
+  </bean>
+</beans>
