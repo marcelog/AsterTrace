@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
   <import resource="event-handlers/dial-pdo-mysql-statements.xml"/>
-  <bean id="dialListener" class="EventHandlers\DialListener" scope="singleton"
+  <bean id="dialListener" class="AsterTrace\EventHandlers\DialListener" scope="singleton"
     init-method="init" listens-on="dialBegin, dialEnd, hangup, varSet">
     <property name="createStatement"><ref bean="createCallStatement"/></property>
     <property name="hangupStatement"><ref bean="hangupCallStatement"/></property>

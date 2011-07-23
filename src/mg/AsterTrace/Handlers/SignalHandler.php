@@ -1,5 +1,5 @@
 <?php
-namespace Handlers;
+namespace AsterTrace\Handlers;
 
 class SignalHandler implements
     \Ding\Helpers\SignalHandler\ISignalHandler, \Ding\Logger\ILoggerAware

@@ -6,7 +6,7 @@
   <bean id="PropertiesHolder" class="Ding\Helpers\Properties\PropertiesHelper" scope="singleton">  
     <property name="locations">  
       <array>  
-        <entry key="0"><value>file://${config.dir}/ramid.properties</value></entry>  
+        <entry key="0"><value>file://${config.dir}/astertrace.properties</value></entry>  
         <entry key="1"><value>file://${config.dir}/php.properties</value></entry>  
         <entry key="2"><value>file://${config.dir}/mysql.properties</value></entry>  
       </array>  

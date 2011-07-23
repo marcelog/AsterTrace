@@ -1,5 +1,5 @@
 <?php
-namespace Handlers;
+namespace AsterTrace\Handlers;
 
 class PamiHandler implements
     \Ding\Helpers\PAMI\IPamiEventHandler, \Ding\Logger\ILoggerAware,

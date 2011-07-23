@@ -1,5 +1,5 @@
 <?php
-namespace EventHandlers;
+namespace AsterTrace\EventHandlers;
 
 class DtmfListener extends PDOListener
 {

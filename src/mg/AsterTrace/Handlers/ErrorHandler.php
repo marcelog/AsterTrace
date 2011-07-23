@@ -1,5 +1,5 @@
 <?php
-namespace Handlers;
+namespace AsterTrace\Handlers;
 
 class ErrorHandler implements
     \Ding\Helpers\ErrorHandler\IErrorHandler, \Ding\Logger\ILoggerAware

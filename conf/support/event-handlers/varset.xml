@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
   <import resource="event-handlers/varset-pdo-mysql-statements.xml"/>
-  <bean id="varSetListener" class="EventHandlers\VarSetListener" scope="singleton"
+  <bean id="varSetListener" class="AsterTrace\EventHandlers\VarSetListener" scope="singleton"
     init-method="init" listens-on="varSet">
     <property name="createStatement"><ref bean="createVarStatement"/></property>
     <property name="insertStatement"><ref bean="insertVarStatement"/></property>

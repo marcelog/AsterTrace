@@ -2,7 +2,7 @@
 ini_set('include_path', implode(PATH_SEPARATOR, array(
     ini_get('include_path'),
     realpath(implode(DIRECTORY_SEPARATOR, array(
-        __DIR__, '..'
+        __DIR__, '..', '..'
     )))
 )));
 

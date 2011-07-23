@@ -1,5 +1,5 @@
 <?php
-namespace EventHandlers;
+namespace AsterTrace\EventHandlers;
 
 abstract class PDOListener implements \Ding\Logger\ILoggerAware
 {

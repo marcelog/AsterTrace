@@ -1,7 +1,7 @@
 <?php
-namespace EventHandlers;
+namespace AsterTrace\EventHandlers;
 
-class VarSetListener extends PDOListener
+class EventListener extends PDOListener
 {
     /**
      * @var \PDOStatement
@@ -23,13 +23,11 @@ class VarSetListener extends PDOListener
         $this->_insertStatement = $statement;
     }
 
-    public function onVarSet($event)
+    public function onAnyEvent($event)
     {
         $this->executeStatement($this->_insertStatement, array(
-            'value' => $event->getValue(),
-            'uniqueid' => $event->getUniqueId(),
-            'channel' => $event->getChannel(),
-            'name' => $event->getVariableName()
+            'name' => $event->getName(),
+            'event' => serialize($event)
         ));
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace Handlers;
+namespace AsterTrace\Handlers;
 
 class ShutdownHandler implements
     \Ding\Helpers\ShutdownHandler\IShutdownHandler, \Ding\Logger\ILoggerAware
