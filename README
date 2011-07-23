@@ -4,11 +4,21 @@ This was intended as an example of use mixing Ding and PAMI. However, it might b
 useful as a tool to help you monitor/debug your asterisk installation, so I'm 
 making it freely available.
 
-Currently, it will monitor:
-* All events
-* Call activity (CDR like)
-* DTMF's pressed
-* VarSet's 
+AsterTrace is extendable via "listeners". Currently these listeners exist:
+* dial
+* event
+* dtmf
+* varset
+
+So currently, AsterTrace can monitor:
+* All events (event-listener)
+* Call activity (CDR like) (dial-listener)
+* DTMF's pressed (dtmf-listener)
+* VarSet's  (varset-listener)
+
+Each listener is autosufficient, and get called by the container (Ding) whenever an
+interesting event occurs. Ding will get called by the pami helper, whenever AMI reports
+an event. This event will then get dispatched to the listeners by ding.
 
 Requirements
 ------------
@@ -17,6 +27,7 @@ Requirements
 * PAMI 1.27+ (http://marcelog.github.com/Ding)
 * mysql server
 * log4php (optional)
+* pdo-mysql
 
 Configuration
 -------------
