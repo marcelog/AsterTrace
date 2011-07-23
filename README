@@ -1,0 +1,32 @@
+Introduction
+------------
+This was intended as an example of use mixing Ding and PAMI. However, it might be
+useful as a tool to help you monitor/debug your asterisk installation, so I'm 
+making it freely available.
+
+Currently, it will monitor:
+* All events
+* Call activity (CDR like)
+* DTMF's pressed
+* VarSet's 
+
+Requirements
+------------
+* PHP 5.3+
+* Ding 0.97+ (http://marcelog.github.com/Ding)
+* PAMI 1.27+ (http://marcelog.github.com/Ding)
+* mysql server
+* log4php (optional)
+
+Configuration
+-------------
+Assuming you are inside the root directory of the source (thus, having ./conf and ./src)
+
+1.- Copy/Rename the file: conf/log4php.properties.example to log4php.properties. Edit it.
+2.- Copy/Rename the file: conf/mysql.properties.example to mysql.properties. Edit it. The only
+thing you need from mysql, is to have the database created (nothing else, no tables,
+AsterTrace will create them on demand).
+3.- Copy/Rename the file: conf/php.properties.example to php.properties. Edit it. You can have
+your own php settings here.
+4.- Copy/Rename the file: conf/astertrace.properties.example to astertrace.properties. Edit it.
+5.- Run astertrace, like "php src/mg/AsterTrace/bin/astertrace.php ./conf"
