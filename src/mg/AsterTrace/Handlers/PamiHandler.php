@@ -86,16 +86,8 @@ class PamiHandler implements
         // First, dispatch the event to all generic event listeners
         $this->container->eventDispatch('anyEvent', $event);
 
-        // Get the class of the event, something like PAMI\Message\Event\SomeEvent.
-        $eventClass = get_class($event);
-
-        // Get to the last \ and copy from there.
-        $eventName = substr($eventClass, strrpos($eventClass, '\\') + 1);
-
-        // Strip "Event" from the end of the string and lowercase the first letter.
-        $eventName = lcfirst(substr($eventName, 0, -5));
-
         // After all of this, the resulting event name will be "some".
+        $eventName = lcfirst($event->getName());
         if (method_exists($event, 'getSubEvent')) {
             // If this event has a subevent string, then concatenate it to the
             // event name, like someSubEvent.
