@@ -7,3 +7,5 @@ mysql.password=root
 mysql.table.call=call
 mysql.table.dtmf=dtmf
 mysql.table.event=event
+mysql.table.var=var
+

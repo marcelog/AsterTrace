@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="createVarStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+CREATE TABLE IF NOT EXISTS `${mysql.table.var}` (
+  `name` varchar(32) NOT NULL,
+  `uniqueid` varchar(32) NOT NULL,
+  `channel` varchar(32) NOT NULL,
+  `value` TEXT NOT NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  KEY  (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+    </value></constructor-arg>
+  </bean>
+
+  <bean id="insertVarStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+INSERT INTO `${mysql.table.var}` (`name`, `value`, `uniqueid`, `channel`)
+VALUES(:name, :value, :uniqueid, :channel)
+    </value></constructor-arg>
+  </bean>
+</beans>
