@@ -31,6 +31,16 @@ namespace AsterTrace\EventHandlers;
 abstract class PDOListener implements \Ding\Logger\ILoggerAware
 {
     /**
+     * @var \PDOStatement
+     */
+    protected $insertStatement;
+
+    /**
+     * @var \PDOStatement
+     */
+    protected $createStatement;
+
+    /**
      * @var \Logger
      */
     protected $logger;
@@ -57,6 +67,36 @@ abstract class PDOListener implements \Ding\Logger\ILoggerAware
                 . print_r($statement->errorInfo(), true)
             );
         }
+    }
+    /**
+     * This will be called by the container. Will execute the create
+     * stable statement.
+     *
+     * @return void
+     */
+    public function init()
+    {
+        $this->executeStatement($this->createStatement, array());
+    }
+
+    /**
+     * Called by the container.
+     *
+     * @return void
+     */
+    public function setCreateStatement($statement)
+    {
+        $this->createStatement = $statement;
+    }
+
+    /**
+     * Called by the container.
+     *
+     * @return void
+     */
+    public function setInsertStatement($statement)
+    {
+        $this->insertStatement = $statement;
     }
 }
 

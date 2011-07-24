@@ -34,7 +34,7 @@ UPDATE `${mysql.table.call}` SET `cause`=:cause,`cause_txt`=:causeTxt WHERE `uni
     </value></constructor-arg>
   </bean>
 
-  <bean id="startCallStatement" class="PDOStatement" scope="prototype"
+  <bean id="insertStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
 INSERT INTO `${mysql.table.call}` (

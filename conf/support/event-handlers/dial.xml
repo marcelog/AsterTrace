@@ -7,7 +7,7 @@
     <property name="hangupStatement"><ref bean="hangupCallStatement"/></property>
     <property name="dialedTimeStatement"><ref bean="dialedTimeStatement"/></property>
     <property name="answeredTimeStatement"><ref bean="answeredTimeStatement"/></property>
-    <property name="startCallStatement"><ref bean="startCallStatement"/></property>
+    <property name="insertStatement"><ref bean="insertStatement"/></property>
     <property name="endCallStatement"><ref bean="endCallStatement"/></property>
   </bean>
 </beans>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Listenes for all events. Will log all events to the
+ * Listens for all events. Will log all events to the
  * database by serializing the PAMI\Event\EventMessage class.
  *
  * PHP Version 5
@@ -31,29 +31,9 @@ namespace AsterTrace\EventHandlers;
 
 class EventListener extends PDOListener
 {
-    /**
-     * @var \PDOStatement
-     */
-    private $_insertStatement;
-
-    /**
-     * @var \PDOStatement
-     */
-    private $_createStatement;
-
-    public function setCreateStatement($statement)
-    {
-        $this->_createStatement = $statement;
-    }
-
-    public function setInsertStatement($statement)
-    {
-        $this->_insertStatement = $statement;
-    }
-
     public function onAnyEvent($event)
     {
-        $this->executeStatement($this->_insertStatement, array(
+        $this->executeStatement($this->insertStatement, array(
             'name' => $event->getName(),
             'channel' => method_exists($event, 'getChannel') ? $event->getChannel() : '',
             'uniqueId' => method_exists($event, 'getUniqueId') ? $event->getUniqueId() : '',
@@ -63,10 +43,6 @@ class EventListener extends PDOListener
         ));
     }
 
-    public function init()
-    {
-        $this->executeStatement($this->_createStatement, array());
-    }
 }
 
 

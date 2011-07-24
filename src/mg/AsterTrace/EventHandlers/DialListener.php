@@ -34,11 +34,6 @@ class DialListener extends PDOListener
     /**
      * @var \PDOStatement
      */
-    private $_startCallStatement;
-
-    /**
-     * @var \PDOStatement
-     */
     private $_endCallStatement;
 
     /**
@@ -56,16 +51,6 @@ class DialListener extends PDOListener
      */
     private $_answeredTimeStatement;
 
-    /**
-     * @var \PDOStatement
-     */
-    private $_createStatement;
-
-    public function setCreateStatement($statement)
-    {
-        $this->_createStatement = $statement;
-    }
-
     public function setHangupStatement($statement)
     {
         $this->_hangupStatement = $statement;
@@ -79,11 +64,6 @@ class DialListener extends PDOListener
     public function setAnsweredTimeStatement($statement)
     {
         $this->_answeredTimeStatement = $statement;
-    }
-
-    public function setStartCallStatement($statement)
-    {
-        $this->_startCallStatement = $statement;
     }
 
     public function setEndCallStatement($statement)
@@ -130,7 +110,7 @@ class DialListener extends PDOListener
 
     public function onDialBegin($event)
     {
-        $this->executeStatement($this->_startCallStatement, array(
+        $this->executeStatement($this->insertStatement, array(
             'uniqueidSrc' => $event->getUniqueId(),
             'uniqueidDst' => $event->getDestUniqueID(),
             'eventStart' => serialize($event),
@@ -140,11 +120,6 @@ class DialListener extends PDOListener
             'clidName' => $event->getCallerIDName(),
             'clidNum' => $event->getCallerIDNum()
         ));
-    }
-
-    public function init()
-    {
-        $this->executeStatement($this->_createStatement, array());
     }
 }
 
