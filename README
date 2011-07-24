@@ -4,6 +4,8 @@ This was intended as an example of use mixing Ding and PAMI. However, it might b
 useful as a tool to help you monitor/debug your asterisk installation, so I'm 
 making it freely available.
 
+See this article for more information: http://marcelog.github.com/articles/php_asterisk_listener_example_using_pami_and_ding.html
+
 AsterTrace is extendable via "listeners". Currently these listeners exist:
 * dial
 * event
