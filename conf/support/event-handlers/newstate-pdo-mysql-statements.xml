@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="createNewStateStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+CREATE TABLE IF NOT EXISTS `${mysql.table.newstate}` (
+  `clid_num` varchar(32) NOT NULL,
+  `clid_name` varchar(32) NOT NULL,
+  `uniqueid` varchar(32) NOT NULL,
+  `channel` varchar(32) NOT NULL,
+  `state` int NOT NULL,
+  `description` varchar(32) NOT NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  KEY  (`channel`),
+  KEY  (`state`),
+  KEY  (`description`),
+  KEY  (`uniqueid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+    </value></constructor-arg>
+  </bean>
+
+  <bean id="insertNewStateStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+INSERT INTO `${mysql.table.newstate}` (`state`, `description`, `clid_num`, `clid_name`, `uniqueid`, `channel`)
+VALUES(:state, :description, :clid_num, :clid_name, :uniqueid, :channel)
+    </value></constructor-arg>
+  </bean>
+</beans>

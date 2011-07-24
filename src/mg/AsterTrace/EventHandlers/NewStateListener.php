@@ -1,6 +1,6 @@
 <?php
 /**
- * NewChannel listener, will capture all incoming calls.
+ * NewState listener, will capture all state changes in channels.
  *
  * PHP Version 5
  *
@@ -28,15 +28,13 @@
  */
 namespace AsterTrace\EventHandlers;
 
-class NewChannelListener extends PDOListener
+class NewStateListener extends PDOListener
 {
-    public function onNewchannel($event)
+    public function onNewstate($event)
     {
         $this->executeStatement($this->insertStatement, array(
             'uniqueid' => $event->getUniqueId(),
             'channel' => $event->getChannel(),
-            'exten' => $event->getExtension(),
-            'context' => $event->getContext(),
             'state' => $event->getChannelState(),
             'description' => $event->getChannelStateDesc(),
             'clid_num' => $event->getCallerIdNum(),

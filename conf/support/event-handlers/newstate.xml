@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <import resource="event-handlers/newstate-pdo-mysql-statements.xml"/>
+  <bean id="newStateListener" class="AsterTrace\EventHandlers\NewStateListener" scope="singleton"
+    init-method="init" listens-on="newstate">
+    <property name="createStatement"><ref bean="createNewStateStatement"/></property>
+    <property name="insertStatement"><ref bean="insertNewStateStatement"/></property>
+  </bean>
+</beans>

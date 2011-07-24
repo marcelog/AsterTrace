@@ -5,4 +5,5 @@
   <import resource="event-handlers/event.xml"/>
   <import resource="event-handlers/varset.xml"/>
   <import resource="event-handlers/newchannel.xml"/>
+  <import resource="event-handlers/newstate.xml"/>
 </beans>
