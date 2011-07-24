@@ -1,5 +1,4 @@
 mysql.db=astertrace
-mysql.table=astertrace
 mysql.host=127.0.0.1
 mysql.port=3306
 mysql.username=root
