@@ -55,6 +55,10 @@ class EventListener extends PDOListener
     {
         $this->executeStatement($this->_insertStatement, array(
             'name' => $event->getName(),
+            'channel' => method_exists($event, 'getChannel') ? $event->getChannel() : '',
+            'uniqueId' => method_exists($event, 'getUniqueId') ? $event->getUniqueId() : '',
+
+            'privilege' => method_exists($event, 'getPrivilege') ? $event->getPrivilege() : '',
             'event' => serialize($event)
         ));
     }

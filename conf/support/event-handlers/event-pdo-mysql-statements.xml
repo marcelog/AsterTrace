@@ -5,6 +5,9 @@
     <constructor-arg><value>
 CREATE TABLE IF NOT EXISTS `${mysql.table.event}` (
   `name` varchar(32) NOT NULL,
+  `channel` varchar(32) NOT NULL,
+  `uniqueid` varchar(32) NOT NULL,
+  `privilege` varchar(32) NOT NULL,
   `event` TEXT NOT NULL,
   `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
   KEY  (`name`)
@@ -15,7 +18,8 @@ CREATE TABLE IF NOT EXISTS `${mysql.table.event}` (
   <bean id="insertEventsStatement" class="PDOStatement" scope="prototype"
     factory-bean="pdoMysql" factory-method="prepare">
     <constructor-arg><value>
-INSERT INTO `${mysql.table.event}` (`name`, `event`) VALUES(:name, :event)
+INSERT INTO `${mysql.table.event}` (`name`, `event`, `channel`, `uniqueid`, `privilege`)
+VALUES(:name, :event, :channel, :uniqueId, :privilege)
     </value></constructor-arg>
   </bean>
 </beans>
