@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <import resource="event-handlers/newchannel-pdo-mysql-statements.xml"/>
+  <bean id="newChannelListener" class="AsterTrace\EventHandlers\NewChannelListener" scope="singleton"
+    init-method="init" listens-on="newchannel">
+    <property name="createStatement"><ref bean="createNewChannelStatement"/></property>
+    <property name="insertStatement"><ref bean="insertNewChannelStatement"/></property>
+  </bean>
+</beans>

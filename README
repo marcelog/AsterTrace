@@ -11,12 +11,14 @@ AsterTrace is extendable via "listeners". Currently these listeners exist:
 * event
 * dtmf
 * varset
+* newchannel
 
 So currently, AsterTrace can monitor:
 * All events (event-listener)
 * Call activity (CDR like) (dial-listener)
 * DTMF's pressed (dtmf-listener)
 * VarSet's  (varset-listener)
+* Newchannel (newchannel-listener)
 
 Each listener is autosufficient, and get called by the container (Ding) whenever an
 interesting event occurs. Ding will get called by the pami helper, whenever AMI reports

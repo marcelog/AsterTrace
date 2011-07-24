@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="createNewChannelStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+CREATE TABLE IF NOT EXISTS `${mysql.table.newchannel}` (
+  `exten` varchar(32) NOT NULL,
+  `context` varchar(32) NOT NULL,
+  `clid_num` varchar(32) NOT NULL,
+  `clid_name` varchar(32) NOT NULL,
+  `uniqueid` varchar(32) NOT NULL,
+  `channel` varchar(32) NOT NULL,
+  `state` int NOT NULL,
+  `description` varchar(32) NOT NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  KEY  (`exten`),
+  KEY  (`context`),
+  KEY  (`channel`),
+  KEY  (`state`),
+  KEY  (`description`),
+  KEY  (`uniqueid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+    </value></constructor-arg>
+  </bean>
+
+  <bean id="insertNewChannelStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+INSERT INTO `${mysql.table.newchannel}` (`state`, `description`, `exten`, `context`, `clid_num`, `clid_name`, `uniqueid`, `channel`)
+VALUES(:state, :description, :exten, :context, :clid_num, :clid_name, :uniqueid, :channel)
+    </value></constructor-arg>
+  </bean>
+</beans>
