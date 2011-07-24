@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <import resource="event-handlers/newexten-pdo-mysql-statements.xml"/>
+  <bean id="newExtenListener" class="AsterTrace\EventHandlers\NewExtenListener" scope="singleton"
+    init-method="init" listens-on="newexten">
+    <property name="createStatement"><ref bean="createNewExtenStatement"/></property>
+    <property name="insertStatement"><ref bean="insertNewExtenStatement"/></property>
+  </bean>
+</beans>

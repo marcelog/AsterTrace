@@ -9,4 +9,5 @@ mysql.table.event=event
 mysql.table.var=var
 mysql.table.newchannel=newchannel
 mysql.table.newstate=newstate
+mysql.table.newexten=newexten
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="createNewExtenStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+CREATE TABLE IF NOT EXISTS `${mysql.table.newexten}` (
+  `exten` varchar(32) NOT NULL,
+  `context` varchar(32) NOT NULL,
+  `priority` varchar(32) NOT NULL,
+  `uniqueid` varchar(32) NOT NULL,
+  `channel` varchar(32) NOT NULL,
+  `app` varchar(32) NOT NULL,
+  `data` varchar(32) NOT NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  KEY  (`exten`),
+  KEY  (`context`),
+  KEY  (`channel`),
+  KEY  (`uniqueid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+    </value></constructor-arg>
+  </bean>
+
+  <bean id="insertNewExtenStatement" class="PDOStatement" scope="prototype"
+    factory-bean="pdoMysql" factory-method="prepare">
+    <constructor-arg><value>
+INSERT INTO `${mysql.table.newexten}` (`app`, `data`, `exten`, `context`, `priority`, `uniqueid`, `channel`)
+VALUES(:app, :data, :exten, :context, :priority, :uniqueid, :channel)
+    </value></constructor-arg>
+  </bean>
+</beans>

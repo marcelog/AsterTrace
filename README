@@ -13,6 +13,7 @@ AsterTrace is extendable via "listeners". Currently these listeners exist:
 * varset
 * newchannel
 * newstate
+* newexten
 
 So currently, AsterTrace can monitor:
 * All events (event-listener)
@@ -21,6 +22,7 @@ So currently, AsterTrace can monitor:
 * VarSet's  (varset-listener)
 * Newchannel (newchannel-listener)
 * Newstate (newstate-listener)
+* Newexten (newexten-listener)
 
 Each listener is autosufficient, and get called by the container (Ding) whenever an
 interesting event occurs. Ding will get called by the pami helper, whenever AMI reports
