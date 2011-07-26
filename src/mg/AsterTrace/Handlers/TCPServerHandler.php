@@ -27,7 +27,10 @@
  */
 namespace AsterTrace\Handlers;
 
-class TCPServerHandler implements \Ding\Logger\ILoggerAware, \Ding\Helpers\TCP\ITCPServerHandler
+class TCPServerHandler implements
+    \Ding\Logger\ILoggerAware,
+    \Ding\Container\IContainerAware,
+    \Ding\Helpers\TCP\ITCPServerHandler
 {
     /**
      * @var \Logger
@@ -36,6 +39,7 @@ class TCPServerHandler implements \Ding\Logger\ILoggerAware, \Ding\Helpers\TCP\I
     protected $server;
     private $_pami;
     protected $clients = array();
+    protected $container;
 
     public function setLogger(\Logger $logger)
     {
@@ -56,6 +60,11 @@ class TCPServerHandler implements \Ding\Logger\ILoggerAware, \Ding\Helpers\TCP\I
 
     public function close()
     {
+    }
+
+    public function setContainer(\Ding\Container\IContainer $container)
+    {
+        $this->container = $container;
     }
 
     public function onAnyEvent($event)
@@ -85,6 +94,7 @@ class TCPServerHandler implements \Ding\Logger\ILoggerAware, \Ding\Helpers\TCP\I
         $this->logger->info('Got from: ' . $remoteAddress . ':' . $remotePort . ': ' . $buffer);
         $response = $this->_pami->send(new \PAMI\Message\Action\CoreShowChannelsAction);
         $this->server->write($remoteAddress, $remotePort, serialize($response));
+        $this->container->eventDispatch('serverCommand', $buffer);
     }
 
     public function disconnect($remoteAddress, $remotePort)
