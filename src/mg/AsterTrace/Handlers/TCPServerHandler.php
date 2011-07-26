@@ -33,18 +33,44 @@ class TCPServerHandler implements
     \Ding\Helpers\TCP\ITCPServerHandler
 {
     /**
+     * @var \Ding\Helpers\TCP\TCPServerHelper
+     */
+    protected $server;
+
+    protected $clients = array();
+    /**
      * @var \Logger
      */
     protected $logger;
-    protected $server;
-    private $_pami;
-    protected $clients = array();
+    /**
+     * @var \Ding\Container\IContainer
+     */
     protected $container;
 
+    /**
+     * Called by the container.
+     *
+     * @param \Logger $logger
+     *
+     * @return void
+     */
     public function setLogger(\Logger $logger)
     {
         $this->logger = $logger;
     }
+
+    /**
+     * Called by the container.
+     *
+     * @param \Ding\Container\IContainer $container
+     *
+     * @return void
+     */
+    public function setContainer(\Ding\Container\IContainer $container)
+    {
+        $this->container = $container;
+    }
+
     public function setServer(\Ding\Helpers\TCP\TCPServerHelper $server)
     {
         $this->server = $server;
@@ -60,11 +86,6 @@ class TCPServerHandler implements
 
     public function close()
     {
-    }
-
-    public function setContainer(\Ding\Container\IContainer $container)
-    {
-        $this->container = $container;
     }
 
     public function onAnyEvent($event)
@@ -103,10 +124,6 @@ class TCPServerHandler implements
     public function disconnect($remoteAddress, $remotePort)
     {
         unset($this->clients[$remoteAddress . ':' . $remotePort]);
-    }
-    public function __construct(\Ding\Helpers\PAMI\PamiHelper $pami)
-    {
-        $this->_pami = $pami;
     }
 }
 

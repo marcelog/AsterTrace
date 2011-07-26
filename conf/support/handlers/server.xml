@@ -21,7 +21,5 @@
         </property>
         <property name="reuse"><true/></property>
     </bean>
-    <bean id="tcpServerHandler" class="AsterTrace\Handlers\TCPServerHandler" scope="singleton" listens-on="anyEvent">
-        <constructor-arg><ref bean="pami"/></constructor-arg>
-    </bean>
+    <bean id="tcpServerHandler" class="AsterTrace\Handlers\TCPServerHandler" scope="singleton" listens-on="anyEvent"/>
 </beans>
