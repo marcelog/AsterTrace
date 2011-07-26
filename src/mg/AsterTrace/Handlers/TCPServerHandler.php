@@ -71,7 +71,7 @@ class TCPServerHandler implements
     {
         foreach ($this->clients as $client => $data)
         {
-            $this->server->write($data[0], $data[1], serialize($event));
+            $this->server->write($data[0], $data[1], serialize($event->getKeys()) . "\r\n\r\n");
         }
     }
 
