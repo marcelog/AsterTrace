@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="tcpServer" class="Ding\Helpers\TCP\TCPServerHelper" scope="singleton">
+        <property name="backlog">
+            <value>${server.backlog}</value>
+        </property>
+        <property name="readTimeout">
+            <value>${server.readTimeout}</value>
+        </property>
+        <property name="readMinLength">
+            <value>${server.readMin}</value>
+        </property>
+        <property name="address">
+            <value>${server.listen}</value>
+        </property>
+        <property name="port">
+            <value>${server.port}</value>
+        </property>
+        <property name="handler">
+            <ref bean="tcpServerHandler"/>
+        </property>
+        <property name="reuse"><true/></property>
+    </bean>
+    <bean id="tcpServerHandler" class="AsterTrace\Handlers\TCPServerHandler" scope="singleton" listens-on="anyEvent">
+        <constructor-arg><ref bean="pami"/></constructor-arg>
+    </bean>
+</beans>

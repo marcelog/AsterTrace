@@ -4,4 +4,5 @@
   <import resource="handlers/shutdown-handler.xml"/>
   <import resource="handlers/signal-handler.xml"/>
   <import resource="handlers/pami-handler.xml"/>
+  <import resource="handlers/server.xml"/>
 </beans>

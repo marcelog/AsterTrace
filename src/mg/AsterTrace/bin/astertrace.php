@@ -38,10 +38,14 @@ try
         $dingProperties
     );
     $listener = $container->getBean('pami');
+    $server = $container->getBean('tcpServer');
+    $server->open();
     while($running) {
         $listener->process();
+        $server->process();
         usleep(1000);
     }
+    $server->close();
 } catch(\Exception $exception) {
     echo get_class($exception) . ': ' . $exception->getMessage() . "\n";
     $retCode = 253;
