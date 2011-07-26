@@ -1,0 +1,6 @@
+server.port=1026
+server.listen=0.0.0.0
+server.backlog=5
+server.readTimeout=0
+server.readMin=1
+
