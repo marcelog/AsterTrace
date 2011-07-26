@@ -1,1 +1,4 @@
 *.properties
+.settings
+.buildpath
+.project
