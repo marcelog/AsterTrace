@@ -2,6 +2,7 @@
 <beans>
   <import resource="handlers.xml"/>
   <import resource="event-handlers.xml"/>
+  <import resource="server-handlers.xml"/>
   <import resource="pdo-mysql.xml"/>
   <bean id="PropertiesHolder" class="Ding\Helpers\Properties\PropertiesHelper" scope="singleton">  
     <property name="locations">  

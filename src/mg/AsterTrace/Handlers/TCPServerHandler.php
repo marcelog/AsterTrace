@@ -92,9 +92,12 @@ class TCPServerHandler implements
         $len = 4096;
         $this->server->read($remoteAddress, $remotePort, $buffer, $len);
         $this->logger->info('Got from: ' . $remoteAddress . ':' . $remotePort . ': ' . $buffer);
-        $response = $this->_pami->send(new \PAMI\Message\Action\CoreShowChannelsAction);
-        $this->server->write($remoteAddress, $remotePort, serialize($response));
-        $this->container->eventDispatch('serverCommand', $buffer);
+        $data = new \AsterTrace\ServerHandlers\ServerCommandDTO;
+        $data->address = $remoteAddress;
+        $data->port = $remotePort;
+        $data->data = $buffer;
+        $cmd = explode(' ', $buffer);
+        $this->container->eventDispatch('server' . $cmd[0], $data);
     }
 
     public function disconnect($remoteAddress, $remotePort)
