@@ -1,5 +1,7 @@
 <?php
 /**
+ * The TCP server. Will dispatch async events and trigger events through the
+ * container for every client command.
  *
  * PHP Version 5
  *
