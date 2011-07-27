@@ -31,7 +31,7 @@ an event. This event will then get dispatched to the listeners by ding.
 Requirements
 ------------
 * PHP 5.3+
-* Ding 0.97+ (http://marcelog.github.com/Ding)
+* Ding 0.98+ (http://marcelog.github.com/Ding)
 * PAMI 1.27+ (http://marcelog.github.com/Ding)
 * mysql server
 * log4php (optional)
