@@ -32,10 +32,6 @@ abstract class ServerHandler implements
     \Ding\Container\IContainerAware, \Ding\Logger\ILoggerAware
 {
     /**
-     * @var \Ding\Helpers\TCP\TCPServerHelper
-     */
-    protected $server;
-    /**
      * @var \Logger
      */
     protected $logger;
@@ -89,20 +85,18 @@ abstract class ServerHandler implements
         foreach ($response->getEvents() as $eventResponse) {
             $result['events'][] = $eventResponse->getKeys();
         }
-        $this->server->write($dto->address, $dto->port, json_encode($result) . "\r\n\r\n");
+        $dto->peer->write(json_encode($result) . "\r\n\r\n");
     }
 
     /**
      * Constructor.
      *
-     * @param \Ding\Helpers\TCP\TCPServerHelper $tcpServer
-     * @param \Ding\Helpers\PAMI\PamiHelper     $pami
+     * @param \Ding\Helpers\PAMI\PamiHelper $pami
      *
      * @return void
      */
-    public function __construct(\Ding\Helpers\TCP\TCPServerHelper $tcpServer, \Ding\Helpers\PAMI\PamiHelper $pami)
+    public function __construct(\Ding\Helpers\PAMI\PamiHelper $pami)
     {
-        $this->server = $tcpServer;
         $this->pami = $pami;
     }
 }

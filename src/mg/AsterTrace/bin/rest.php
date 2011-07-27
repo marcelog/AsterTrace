@@ -1,13 +1,12 @@
 <?php
-namespace AsterTrace\ServerHandlers;
-
 /**
- * DTO for passing data from the TCPServer to the listening beans.
+ * Main entry point (as a rest service). Will bootstrap, instantiate the
+ * container and start things up.
  *
  * PHP Version 5
  *
  * @category AsterTrace
- * @package  ServerHandlers
+ * @package  Bin
  * @author   Marcelo Gornstein <marcelog@gmail.com>
  * @license  http://marcelog.github.com/ Apache License 2.0
  * @version  SVN: $Id$
@@ -28,16 +27,24 @@ namespace AsterTrace\ServerHandlers;
  * limitations under the License.
  *
  */
-class ServerCommandDTO
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
+
+// Main Entry Point
+$retCode = 0;
+$running = true;
+try
 {
-    /**
-     * The peer.
-     * @var \Ding\Helpers\TCP\TCPPeer
-     */
-    public $peer;
-    /**
-     * What the client sent.
-     * @var integer
-     */
-    public $data;
+    $container = \Ding\Container\Impl\ContainerImpl::getInstance(
+        $dingProperties
+    );
+    $listener = $container->getBean('pami');
+    while($running) {
+        $listener->process();
+        usleep(1000);
+    }
+    $server->close();
+} catch(\Exception $exception) {
+    echo get_class($exception) . ': ' . $exception->getMessage() . "\n";
+    $retCode = 253;
 }
+exit($retCode);

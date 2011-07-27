@@ -1,6 +1,6 @@
 <?php
 /**
- * Bootstrapping code. Set include paths, setup 
+ * Bootstrapping code. Set include paths, setup
  * container configuration.
  *
  * PHP Version 5
@@ -37,13 +37,21 @@ ini_set('include_path', implode(PATH_SEPARATOR, array(
 require_once 'Ding/Autoloader/Autoloader.php';
 \Ding\Autoloader\Autoloader::register();
 
-if ($argc != 2) {
-    echo implode(' ', array(
-        'Use:', $argv[0], '<config_dir>'
-    ));
-    exit(253);
+if (php_sapi_name() == 'cli') {
+    if ($argc != 2) {
+        echo implode(' ', array(
+        	'Use:', $argv[0], '<config_dir>'
+        ));
+        exit(253);
+    }
+    $configDir = $argv[1];
+    $beans = 'cli.xml';
+    $log4php = 'log4php.properties';
+} else {
+    $configDir = getenv('CONFIG_DIR');
+    $beans = 'rest.xml';
+    $log4php = 'log4php-rest.properties';
 }
-$configDir = $argv[1];
 $log4php = $configDir . DIRECTORY_SEPARATOR . 'log4php.properties';
 $dingUserProperties = array('config.dir' => $configDir);
 $dingDrivers = array(
@@ -53,7 +61,7 @@ $dingDrivers = array(
 );
 $dingBdef = array(
     'xml' => array(
-        'filename' => 'beans.xml',
+        'filename' => $beans,
         'directories' => array($configDir . DIRECTORY_SEPARATOR . 'support')
     )
 );

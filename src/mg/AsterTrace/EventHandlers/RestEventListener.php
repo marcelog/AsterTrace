@@ -1,13 +1,11 @@
 <?php
-namespace AsterTrace\ServerHandlers;
-
 /**
- * DTO for passing data from the TCPServer to the listening beans.
+ * Listens for all events. Will log all events to console.
  *
  * PHP Version 5
  *
  * @category AsterTrace
- * @package  ServerHandlers
+ * @package  EventHandlers
  * @author   Marcelo Gornstein <marcelog@gmail.com>
  * @license  http://marcelog.github.com/ Apache License 2.0
  * @version  SVN: $Id$
@@ -28,16 +26,17 @@ namespace AsterTrace\ServerHandlers;
  * limitations under the License.
  *
  */
-class ServerCommandDTO
+namespace AsterTrace\EventHandlers;
+
+class RestEventListener
 {
-    /**
-     * The peer.
-     * @var \Ding\Helpers\TCP\TCPPeer
-     */
-    public $peer;
-    /**
-     * What the client sent.
-     * @var integer
-     */
-    public $data;
+    public function onAnyEvent($event)
+    {
+        ob_start();
+        echo json_encode($event->getKeys()) . "\r\n\r\n";
+        ob_end_flush();
+    }
+
 }
+
+

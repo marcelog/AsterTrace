@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <import resource="handlers.xml"/>
+  <import resource="event-handlers-rest.xml"/>
+  <bean id="PropertiesHolder" class="Ding\Helpers\Properties\PropertiesHelper" scope="singleton">  
+    <property name="locations">  
+      <array>  
+        <entry key="0"><value>file://${config.dir}/astertrace.properties</value></entry>  
+        <entry key="1"><value>file://${config.dir}/php.properties</value></entry>  
+        <entry key="2"><value>file://${config.dir}/mysql.properties</value></entry>  
+        <entry key="3"><value>file://${config.dir}/server.properties</value></entry>  
+      </array>  
+    </property>  
+  </bean>
+</beans>

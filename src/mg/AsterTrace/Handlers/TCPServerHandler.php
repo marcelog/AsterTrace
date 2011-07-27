@@ -34,11 +34,6 @@ class TCPServerHandler implements
     \Ding\Container\IContainerAware,
     \Ding\Helpers\TCP\ITCPServerHandler
 {
-    /**
-     * @var \Ding\Helpers\TCP\TCPServerHelper
-     */
-    protected $server;
-
     protected $clients = array();
     /**
      * @var \Logger
@@ -73,11 +68,6 @@ class TCPServerHandler implements
         $this->container = $container;
     }
 
-    public function setServer(\Ding\Helpers\TCP\TCPServerHelper $server)
-    {
-        $this->server = $server;
-    }
-
     public function beforeOpen()
     {
     }
@@ -92,40 +82,39 @@ class TCPServerHandler implements
 
     public function onAnyEvent($event)
     {
-        foreach ($this->clients as $client => $data)
+        foreach ($this->clients as $client => $peer)
         {
-            $this->server->write($data[0], $data[1], json_encode($event->getKeys()) . "\r\n\r\n");
+            $peer->write(json_encode($event->getKeys()) . "\r\n\r\n");
         }
     }
 
-    public function handleConnection($remoteAddress, $remotePort)
+    public function handleConnection(\Ding\Helpers\TCP\TCPPeer $peer)
     {
-        $this->clients[$remoteAddress . ':' . $remotePort] = array($remoteAddress, $remotePort);
+        $this->clients[$peer->getName()] = $peer;
     }
 
-    public function readTimeout($remoteAddress, $remotePort)
+    public function readTimeout(\Ding\Helpers\TCP\TCPPeer $peer)
     {
-        $this->logger->info('Timeout for: ' . $remoteAddress . ':' . $remotePort);
-        $this->server->disconnect($remoteAddress, $remotePort);
+        $this->logger->info('Timeout for: ' . $peer->getName());
+        $peer->disconnect();
     }
 
-    public function handleData($remoteAddress, $remotePort)
+    public function handleData(\Ding\Helpers\TCP\TCPPeer $peer)
     {
         $buffer = '';
         $len = 4096;
-        $this->server->read($remoteAddress, $remotePort, $buffer, $len);
-        $this->logger->info('Got from: ' . $remoteAddress . ':' . $remotePort . ': ' . $buffer);
+        $peer->read($buffer, $len);
+        $this->logger->info('Got from: ' . $peer->getName() . ': ' . $buffer);
         $data = new \AsterTrace\ServerHandlers\ServerCommandDTO;
-        $data->address = $remoteAddress;
-        $data->port = $remotePort;
+        $data->peer = $peer;
         $data->data = $buffer;
         $cmd = explode(' ', $buffer);
         $this->container->eventDispatch('server' . $cmd[0], $data);
     }
 
-    public function disconnect($remoteAddress, $remotePort)
+    public function disconnect(\Ding\Helpers\TCP\TCPPeer $peer)
     {
-        unset($this->clients[$remoteAddress . ':' . $remotePort]);
+        unset($this->clients[$peer->getName()]);
     }
 }
 

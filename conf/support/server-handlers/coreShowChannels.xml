@@ -2,7 +2,6 @@
 <beans>
   <bean id="coreShowChannels" class="AsterTrace\ServerHandlers\CoreShowChannels" scope="singleton"
     listens-on="serverCoreShowChannels">
-    <constructor-arg><ref bean="tcpServer"/></constructor-arg>
     <constructor-arg><ref bean="pami"/></constructor-arg>
   </bean>
 </beans>
