@@ -28,6 +28,17 @@ Each listener is autosufficient, and get called by the container (Ding) whenever
 interesting event occurs. Ding will get called by the pami helper, whenever AMI reports
 an event. This event will then get dispatched to the listeners by ding.
 
+TCP Server
+----------
+AsterTrace uses the Ding TCPServerHelper to start a tcp server. This server allows you
+to connect and issue commands, also you can listen for events. The events and responses to
+the actions sent are serialized with json :) You can try it via telnet.
+
+REST interface
+--------------
+Also, a rest interface is available, so you can make it publicly available through a webserver. This
+rest interface will let you get events from ami in a json format. Ideal for COMET/Long polling.
+
 Requirements
 ------------
 * PHP 5.3+
@@ -42,10 +53,12 @@ Configuration
 Assuming you are inside the root directory of the source (thus, having ./conf and ./src)
 
 1.- Copy/Rename the file: conf/log4php.properties.example to log4php.properties. Edit it.
-2.- Copy/Rename the file: conf/mysql.properties.example to mysql.properties. Edit it. The only
+2.- Copy/Rename the file: conf/log4php.properties.example to log4php-rest.properties. Edit it.
+3.- Copy/Rename the file: conf/mysql.properties.example to mysql.properties. Edit it. The only
 thing you need from mysql, is to have the database created (nothing else, no tables,
 AsterTrace will create them on demand).
-3.- Copy/Rename the file: conf/php.properties.example to php.properties. Edit it. You can have
+4.- Copy/Rename the file: conf/php.properties.example to php.properties. Edit it. You can have
 your own php settings here.
-4.- Copy/Rename the file: conf/astertrace.properties.example to astertrace.properties. Edit it.
-5.- Run astertrace, like "php src/mg/AsterTrace/bin/astertrace.php ./conf"
+5.- Copy/Rename the file: conf/astertrace.properties.example to astertrace.properties. Edit it.
+6.- Copy/Rename the file: conf/server.properties.example to server.properties. Edit it.
+7.- Run astertrace, like "php src/mg/AsterTrace/bin/astertrace.php ./conf"
