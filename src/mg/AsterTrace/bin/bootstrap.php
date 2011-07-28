@@ -52,7 +52,6 @@ if (php_sapi_name() == 'cli') {
     $beans = 'rest.xml';
     $log4php = 'log4php-rest.properties';
 }
-$log4php = $configDir . DIRECTORY_SEPARATOR . 'log4php.properties';
 $dingUserProperties = array('config.dir' => $configDir);
 $dingDrivers = array(
     'errorhandler' => array(),
@@ -67,7 +66,7 @@ $dingBdef = array(
 );
 
 $dingProperties = array('ding' => array(
-    'log4php.properties' => $log4php,
+    'log4php.properties' => $configDir . DIRECTORY_SEPARATOR . $log4php,
     'factory' => array(
         'properties' => $dingUserProperties,
         'drivers' => $dingDrivers,
