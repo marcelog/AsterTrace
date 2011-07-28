@@ -78,6 +78,7 @@ class TCPServerHandler implements
 
     public function close()
     {
+        $this->logger->info('Server closed');
     }
 
     public function onAnyEvent($event)
@@ -90,6 +91,7 @@ class TCPServerHandler implements
 
     public function handleConnection(\Ding\Helpers\TCP\TCPPeer $peer)
     {
+        $this->logger->info('New connection from: ' . $peer->getName());
         $this->clients[$peer->getName()] = $peer;
     }
 
@@ -114,6 +116,7 @@ class TCPServerHandler implements
 
     public function disconnect(\Ding\Helpers\TCP\TCPPeer $peer)
     {
+        $this->logger->info('Disconnected: ' . $peer->getName());
         unset($this->clients[$peer->getName()]);
     }
 }
