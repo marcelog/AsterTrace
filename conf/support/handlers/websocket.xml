@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="webSocketServer" class="Ding\Helpers\TCP\TCPServerHelper" scope="singleton">
+        <property name="backlog">
+            <value>${websocket.backlog}</value>
+        </property>
+        <property name="readTimeout">
+            <value>${websocket.readTimeout}</value>
+        </property>
+        <property name="readMinLength">
+            <value>${websocket.readMin}</value>
+        </property>
+        <property name="address">
+            <value>${websocket.listen}</value>
+        </property>
+        <property name="port">
+            <value>${websocket.port}</value>
+        </property>
+        <property name="handler">
+            <ref bean="webSocketServerHandler"/>
+        </property>
+        <property name="reuse"><true/></property>
+    </bean>
+    <bean id="webSocketServerHandler" class="AsterTrace\Handlers\WebSocketServerHandler" scope="singleton" listens-on="anyEvent"/>
+</beans>

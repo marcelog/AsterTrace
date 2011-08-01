@@ -5,4 +5,5 @@
   <import resource="handlers/signal-handler.xml"/>
   <import resource="handlers/pami-handler.xml"/>
   <import resource="handlers/server.xml"/>
+  <import resource="handlers/websocket.xml"/>
 </beans>

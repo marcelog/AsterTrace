@@ -40,6 +40,8 @@ try
     $listener = $container->getBean('pami');
     $server = $container->getBean('tcpServer');
     $server->open();
+    $websocket = $container->getBean('webSocketServer');
+    $websocket->open();
     while($running) {
         $listener->process();
         $server->process();

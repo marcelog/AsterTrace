@@ -11,6 +11,7 @@
         <entry key="1"><value>file://${config.dir}/php.properties</value></entry>  
         <entry key="2"><value>file://${config.dir}/mysql.properties</value></entry>  
         <entry key="3"><value>file://${config.dir}/server.properties</value></entry>  
+        <entry key="4"><value>file://${config.dir}/websocket.properties</value></entry>  
       </array>  
     </property>  
   </bean>

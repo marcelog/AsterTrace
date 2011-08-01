@@ -42,7 +42,6 @@ try
         $listener->process();
         usleep(1000);
     }
-    $server->close();
 } catch(\Exception $exception) {
     echo get_class($exception) . ': ' . $exception->getMessage() . "\n";
     $retCode = 253;

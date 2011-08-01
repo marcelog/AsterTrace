@@ -1,0 +1,6 @@
+websocket.port=1026
+websocket.listen=0.0.0.0
+websocket.backlog=5
+websocket.readTimeout=0
+websocket.readMin=1
+
