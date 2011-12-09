@@ -62,3 +62,7 @@ your own php settings here.
 5.- Copy/Rename the file: conf/astertrace.properties.example to astertrace.properties. Edit it.
 6.- Copy/Rename the file: conf/server.properties.example to server.properties. Edit it.
 7.- Run astertrace, like "php src/mg/AsterTrace/bin/astertrace.php ./conf"
+
+Thanks to
+--------
+* Joshua Elson for his help in trying and debugging in loaded asterisk servers.
