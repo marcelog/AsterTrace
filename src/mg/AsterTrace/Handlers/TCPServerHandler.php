@@ -29,10 +29,10 @@
  */
 namespace AsterTrace\Handlers;
 
-class TCPServerHandler implements
+class TcpServerHandler implements
     \Ding\Logger\ILoggerAware,
     \Ding\Container\IContainerAware,
-    \Ding\Helpers\TCP\ITCPServerHandler
+    \Ding\Helpers\Tcp\ITcpServerHandler
 {
     protected $clients = array();
     /**
@@ -89,19 +89,19 @@ class TCPServerHandler implements
         }
     }
 
-    public function handleConnection(\Ding\Helpers\TCP\TCPPeer $peer)
+    public function handleConnection(\Ding\Helpers\Tcp\TcpPeer $peer)
     {
         $this->logger->info('New connection from: ' . $peer->getName());
         $this->clients[$peer->getName()] = $peer;
     }
 
-    public function readTimeout(\Ding\Helpers\TCP\TCPPeer $peer)
+    public function readTimeout(\Ding\Helpers\Tcp\TcpPeer $peer)
     {
         $this->logger->info('Timeout for: ' . $peer->getName());
         $peer->disconnect();
     }
 
-    public function handleData(\Ding\Helpers\TCP\TCPPeer $peer)
+    public function handleData(\Ding\Helpers\Tcp\TcpPeer $peer)
     {
         $buffer = '';
         $len = 4096;
@@ -114,7 +114,7 @@ class TCPServerHandler implements
         $this->container->eventDispatch('server' . $cmd[0], $data);
     }
 
-    public function disconnect(\Ding\Helpers\TCP\TCPPeer $peer)
+    public function disconnect(\Ding\Helpers\Tcp\TcpPeer $peer)
     {
         $this->logger->info('Disconnected: ' . $peer->getName());
         unset($this->clients[$peer->getName()]);

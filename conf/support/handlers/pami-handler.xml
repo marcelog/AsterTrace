@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <bean id="pamiHandler" class="AsterTrace\Handlers\PamiHandler" scope="singleton" init-method="init" destroy-method="shutdown"/>
-  <bean id="pami" class="Ding\Helpers\PAMI\PamiHelper" scope="singleton" init-method="open" destroy-method="close">
+  <bean id="pamiHandler" class="AsterTrace\Handlers\PamiHandler" init-method="init" destroy-method="shutdown"/>
+  <bean id="pami" class="Ding\Helpers\Pami\PamiHelper" init-method="open" destroy-method="close">
     <property name="username"><value>${ami.username}</value></property>
     <property name="password"><value>${ami.password}</value></property>
     <property name="host"><value>${ami.host}</value></property>

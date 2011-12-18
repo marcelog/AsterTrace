@@ -28,8 +28,7 @@
  */
 namespace AsterTrace\Handlers;
 
-class ShutdownHandler implements
-    \Ding\Helpers\ShutdownHandler\IShutdownHandler, \Ding\Logger\ILoggerAware
+class ShutdownHandler implements \Ding\Logger\ILoggerAware
 {
     protected $logger;
 
@@ -38,7 +37,7 @@ class ShutdownHandler implements
         $this->logger = $logger;
     }
 
-    public function handleShutdown()
+    public function onDingShutdown()
     {
         $this->logger->info('Shutting down');
     }

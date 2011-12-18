@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-    <bean id="tcpServer" class="Ding\Helpers\TCP\TCPServerHelper" scope="singleton">
+    <bean id="tcpServer" class="Ding\Helpers\Tcp\TcpServerHelper" scope="singleton">
         <property name="backlog">
             <value>${server.backlog}</value>
         </property>

@@ -28,8 +28,7 @@
  */
 namespace AsterTrace\Handlers;
 
-class SignalHandler implements
-    \Ding\Helpers\SignalHandler\ISignalHandler, \Ding\Logger\ILoggerAware
+class SignalHandler implements \Ding\Logger\ILoggerAware
 {
     protected $logger;
 
@@ -38,7 +37,7 @@ class SignalHandler implements
         $this->logger = $logger;
     }
 
-    public function handleSignal($signal)
+    public function onDingSignal($signal)
     {
         global $running;
         $this->logger->info('Got signal: ' . $signal);

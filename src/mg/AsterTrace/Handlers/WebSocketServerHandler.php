@@ -34,7 +34,7 @@ class WebSocketServerHandler implements
     \Ding\Container\IContainerAware,
     \Ding\Helpers\TCP\ITCPServerHandler
 {
-    protected $clients = array();
+    protected $clients = array('saluted' => array(), 'unsaluted' => array());
     /**
      * @var \Logger
      */

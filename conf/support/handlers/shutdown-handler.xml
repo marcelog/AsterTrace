@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <bean id="myShutdownHandler" class="AsterTrace\Handlers\MyShutdownHandler" scope="singleton"/>
-  <bean id="ShutdownHandler" class="Ding\Helpers\ShutdownHandler\ShutdownHandlerHelper" scope="singleton">
-    <property name="shutdownHandler"><ref bean="myShutdownHandler"/></property>
-  </bean>
+  <bean id="myShutdownHandler" class="AsterTrace\Handlers\MyShutdownHandler" listens-on="dingShutdown"/>
 </beans>
 

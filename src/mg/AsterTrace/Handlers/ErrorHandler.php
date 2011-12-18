@@ -28,8 +28,7 @@
  */
 namespace AsterTrace\Handlers;
 
-class ErrorHandler implements
-    \Ding\Helpers\ErrorHandler\IErrorHandler, \Ding\Logger\ILoggerAware
+class ErrorHandler implements \Ding\Logger\ILoggerAware
 {
     protected $logger;
 
@@ -38,7 +37,7 @@ class ErrorHandler implements
         $this->logger = $logger;
     }
 
-    public function handleError(\Ding\Helpers\ErrorHandler\ErrorInfo $error)
+    public function onDingError(\Ding\Helpers\ErrorHandler\ErrorInfo $error)
     {
         $this->logger->error(print_r($error, true));
     }
