@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-  <bean id="myShutdownHandler" class="AsterTrace\Handlers\MyShutdownHandler" listens-on="dingShutdown"/>
+  <bean id="myShutdownHandler" class="AsterTrace\Handlers\ShutdownHandler" listens-on="dingShutdown"/>
 </beans>
 
