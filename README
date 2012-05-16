@@ -43,7 +43,7 @@ Requirements
 ------------
 * PHP 5.3+
 * Ding 0.98+ (http://marcelog.github.com/Ding)
-* PAMI 1.27+ (http://marcelog.github.com/Ding)
+* PAMI 1.27+ (http://marcelog.github.com/PAMI)
 * mysql server
 * log4php (optional)
 * pdo-mysql
