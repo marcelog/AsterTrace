@@ -18,6 +18,8 @@ function WebSocketTest()
      { 
         var received_msg = evt.data;
         console.log(received_msg);
+        var txt = document.createTextNode(received_msg);
+        document.getElementById('messages').appendChild(txt); 
      };
      ws.onclose = function()
      { 
@@ -36,6 +38,8 @@ function WebSocketTest()
 <body>
 <div id="sse">
    <a href="javascript:WebSocketTest()">Run WebSocket</a>
+</div>
+<div id="messages">
 </div>
 </body>
 </html>
